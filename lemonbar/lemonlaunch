@@ -1,0 +1,27 @@
+#!/bin/bash
+
+: "
+Lemonbar Driver Script
+"
+
+# Kill all lemon-related scripts
+killall -q lemonbar
+killall -q lemonconfig
+
+main()
+{
+    $(dirname $0)/lemonconfig | lemonbar -p -g 1920x32+0+0 \
+        -F "#FFFFFFFF" \
+        -B "#FF222222" \
+        -U "#268bd2" \
+        -u 3 \
+        -o -4 \
+        -f "Hack Nerd Font"-14 \
+        -o -2 \
+        -f "Hack Nerd Font"-18 | $SHELL
+}
+
+
+if [[ "${BASH_SOURCE[0]}" == ${0} ]]; then
+    main "$@"
+fi

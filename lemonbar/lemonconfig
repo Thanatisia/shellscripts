@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+: "
+Outputs a configuration for lemonbar
+
+References:
+    - Brodie Robertson Scripts repo
+"
+
+# Import/Source External Libraries
+. $(dirname $0)/lemonwidgets
+
+Update()
+{
+    # Print out everytime the status bar updates
+    # echo "${c}%{F#FFFF00} %{B#0000FF} $(Clock) %{F-}%{B-} ${r}$(Battery)"
+    echo -e "${l}$(Workspaces) $(ActiveWindow) ${r} $(Clock)"
+}
+
+while true; do
+    Update
+    sleep 1s &
+    wait
+done
