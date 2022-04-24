@@ -1,0 +1,19 @@
+#!/bin/bash
+: "
+Formating funtions
+"
+
+box()
+{
+    : "
+    Function to draw box around text
+
+    References:
+        - Many thanks to Jake@Linux for this idea! 
+    "
+    title=" $1 "
+    edge=$(echo "$title" | sed 's/./*/g')
+    echo "$edge"
+    echo -e "\e[1;31m$title\e[0m"
+    echo "$edge"
+}
