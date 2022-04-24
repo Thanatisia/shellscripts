@@ -14,7 +14,7 @@ Update()
 {
     # Print out everytime the status bar updates
     # echo "${c}%{F#FFFF00} %{B#0000FF} $(Clock) %{F-}%{B-} ${r}$(Battery)"
-    echo -e "${l}$(Workspaces) $(ActiveWindow) ${r} $(Clock)"
+    echo -e "${l}$(Workspaces) $(ActiveWindow) ${r} $(Battery) $(Clock)"
 }
 
 while true; do

@@ -27,12 +27,19 @@ Battery()
     # Requires package 'acpi' for Battery reading
     BAT_PERC=$(acpi --battery | cut -d ',' -f2)
 
-    echo "$BAT_PERC"
+    # echo "$BAT_PERC"
+    Format "$BAT_PERC"
 }
 
 ActiveWindow()
 {
-    printf " $(xdotool getwindowfocus getwindowname)"
+    # printf " $(xdotool getwindowfocus getwindowname)"
+    curr_window=$(xdotool getwindowfocus getwindowname)
+    if [[ ! "$curr_window" == "" ]]; then
+        Format " $(xdotool getwindowfocus getwindowname)"
+    else
+        echo ""
+    fi
 }
 
 Workspaces()
