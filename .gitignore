@@ -1,0 +1,4 @@
+# Files and Folders to be ignore
+
+### Virtual Environment Folder ###
+env/
