@@ -44,9 +44,10 @@ python main.py {options}
 
 ### Parameters/Arguments
 
-+ --clean : Format Standard Output for Terminal/CLI scripting use
 + --cli : Starts in CLI Mode
 + --gui : Starts in GUI Mode
++ -c | --clean : Format Standard Output for Terminal/CLI scripting use
++ -cfg | --config <new-config-file> : Specify path to new config file
 + -h | --help : Displays this Help message
 + -v | --version : Displays the program's version and relevant information
 

@@ -98,7 +98,7 @@ def init():
     PROG_CONFIG_PATH = "~/.config/serverctrl/config.json"
     """
     global PROG_SETUP
-    PROG_SETUP = setup.Settings("Server Controller Utility", "v0.1.0", "~/.config/serverctrl/config.json", "Asura (https://github.com/Thanatisia]")
+    PROG_SETUP = setup.Settings("Server Controller Utility", "v0.2.0", "~/.config/serverctrl/config.json", "Asura (https://github.com/Thanatisia]")
 
 def main():
     # to_run = [] # List of things to run
