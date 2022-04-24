@@ -1,0 +1,67 @@
+#!/bin/bash
+: "
+Clipboard Manager/Utility 'Powered'  by xclip 
+"
+
+### Variables ###
+AUTHOR="Asura"
+VERS="v0.1.0" # major.minor.patch
+
+### Program Variables ###
+clipboard_mgr="clip"
+
+### Variables - Array ###
+opts=(
+    [Help]="-h;--help"
+    [Version]="-v;--version"
+)
+
+### Command Line Arguments ###
+argv="$@"
+argc="${#argv[@]}"
+
+help_menu()
+{
+    echo "Options:"
+    echo "-h | --help : Displays this help menu"
+    echo "-v | --version : Displays version name"
+}
+
+version()
+{
+    : "
+    Displays version name
+    "
+    echo "Version : ${VERS}, made by ${AUTHOR}"
+}
+
+main()
+{
+    stdout=$1
+    $stdout | xclip -sel clip
+}
+
+menu()
+{
+    : "
+    General menu
+    "
+    opt="$@"
+
+    # Check for options
+    case "$opt" in 
+        "-h" | "--help")
+            help_menu
+            ;;
+        "-v" | "--version")
+            version
+            ;;
+         *)
+             main "$@"
+             ;;
+    esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    menu "$@"
+fi
