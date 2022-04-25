@@ -39,7 +39,7 @@ ActiveWindow()
     # printf " $(xdotool getwindowfocus getwindowname)"
     curr_window=$(xdotool getwindowfocus getwindowname)
     if [[ ! "$curr_window" == "" ]]; then
-        Format " $(xdotool getwindowfocus getwindowname)"
+        Format "$(xdotool getwindowfocus getwindowname)"
     else
         echo ""
     fi
