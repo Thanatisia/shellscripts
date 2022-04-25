@@ -66,6 +66,11 @@ A Collection/library of Widgets to use in configuration for Lemonbar
 + acpi
 + bspc (Window Manager dependent)
 + xdotools
++ lemonvariables
+
+#### lemonvariables
+
+Environment Variables for lemonbar scripts such as background colour etc.
 
 ## Resources
 - [BrodieRobertson - Scripts](https://github.com/BrodieRobertson/scripts)

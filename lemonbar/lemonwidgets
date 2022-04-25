@@ -4,6 +4,9 @@
 Lemonbar Wiget Definitions
 "
 
+# Import/Source External Libraries
+. $(dirname $0)/lemonvariables
+
 Format()
 {
     echo "%{+u}%{B$background} $1 %{B}%{-u}"
@@ -19,7 +22,7 @@ Clock()
 
     # printf "$DATETIME"
     # echo "$DATETIME"
-    Format "${DATE} {$TIME}"
+    Format "${DATE} ${TIME}"
 }
 
 Battery() 

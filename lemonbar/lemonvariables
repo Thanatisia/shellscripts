@@ -1,0 +1,10 @@
+#!/bin/bash
+
+: "
+Lemonbar Configuration Environment Variables
+"
+
+# Variables
+background="#2D2D2D"
+
+

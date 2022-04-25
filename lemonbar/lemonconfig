@@ -10,11 +10,23 @@ References:
 # Import/Source External Libraries
 . $(dirname $0)/lemonwidgets
 
+trap 'Update' 5 # Detect the signal 'Update' and execute command
+
+
 Update()
 {
-    # Print out everytime the status bar updates
+    : "
+    Print out everytime the status bar updates
+
+    Formatting:
+        - lemonbar uses %{<position>} for its formatting
+            %{l} : Position all widgets after this point on the left
+            %{c} : Position all widgets after this point on the center
+            %{r} : Position all widgets after this point on the right
+    "
+
     # echo "${c}%{F#FFFF00} %{B#0000FF} $(Clock) %{F-}%{B-} ${r}$(Battery)"
-    echo -e "${l}$(Workspaces) $(ActiveWindow) ${r} $(Battery) $(Clock)"
+    echo -e "%{l}$(Workspaces) %{c}$(ActiveWindow) %{r} $(Battery) $(Clock)"
 }
 
 while true; do
