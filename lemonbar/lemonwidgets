@@ -56,7 +56,7 @@ Workspaces()
         nodes=$(bspc query -N -d $desktop)
 
         if [[ ! -z "$nodes" ]]; then
-            desktops=$(echo $desktops | sed "s/$desktop/%{F#ff0000}$desktop%{F-}/")
+            desktops=$(echo $desktops | sed "s/$desktop/%{F$foreground}$desktop%{F-}/")
         fi
     done
 

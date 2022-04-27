@@ -1,0 +1,59 @@
+#!/bin/bash
+: "
+A generic, non-dependent Scratchpad utility for any graphical environment, using xdotools
+
+This variation is for running GUI Applications
+- I am targeting to combine both scratchpad4cli and scratchpad4gui together to make an efficient generic scratchpad script
+
+Many thanks to : 
+    - Jake@Linux' Idea and scripting explanation for xdotool's window-in and window-out functionality in the video [Scripts to allow Window Manager agnostic scratchpads]
+
+Dependencies:
+    - xdotools
+"
+
+argv=$@ # Optional Arguments start in either '-' or '--'
+argc="${#argv[@]}"
+
+window_hide()
+{
+    : "
+    - Check for a window name that is provided by the user
+    - Check that the window is visible
+    - If the window is visible, hide it
+    "
+    echo "Hide : $1"
+    xdotool search --onlyvisible --classname $1 windowunmap
+}
+
+window_show()
+{
+    : "
+    - Check for a window name that is provided by the user
+    - If it exists, show it
+    "
+    echo "Show : $1"
+    xdotool search --classname $1 windowmap
+}
+
+main()
+{
+    : "
+    Optional Arguments are in the form of
+        -opt : Short Form
+        --option : Long Form    
+    "
+    window_name=$1
+    args=${@:2} # Take all arguments pass the first argument
+    command="$window_name $args"
+
+    echo $command >> /tmp/dev-gui.log
+    
+    window_hide "$window_name" || \
+        window_show "$window_name" || \
+        $command & 
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main $@
+fi

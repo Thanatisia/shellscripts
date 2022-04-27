@@ -8,6 +8,13 @@ Lemonbar Driver Script
 killall -q lemonbar
 killall -q lemonconfig
 
+declare -A LEMON_COLORS=(
+    [light-blue]="#268bd2"
+    [grey]="#FF222222"
+    [grey-transparent]="#FF22222200"
+    [white]="#FFFFFFFF"
+)
+
 main()
 {
     ### Variables ###
@@ -24,9 +31,9 @@ main()
     # Runner
     $(dirname $0)/lemonconfig | lemonbar -p \
         -g ${width}x${height}+0+0 \
-        -F "#FFFFFFFF" \
-        -B "#FF222222" \
-        -U "#268bd2" \
+        -F "${LEMON_COLORS["white"]}" \
+        -B "${LEMON_COLORS["grey-transparent"]}" \
+        -U "${LEMON_COLORS["light-blue"]}" \
         -u 3 \
         -o -4 \
         -f "JetBrains Mono Medium"-14 \

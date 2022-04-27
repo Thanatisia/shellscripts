@@ -1,0 +1,80 @@
+# GenScratch
+
+A generic non-graphical environment reliant universal Scratchpad powered by xdotools
+
+## Table of Contents
+- [Information](#information)
+- [Setup](#setup)
+- [Documentation](#documentation)
+- [Resources](#resources)
+- [References](#references)
+- [Remarks](#remarks)
+
+# Information
+
+genscratch is a Generic, Non-Graphical Environment reliant, Universal Scratchpad thats using xdotools' "window-in", "window-out" functionality layered on top of UI to create a modifiable, portable scratchpad.
+
+genscratch utilises the Environment Variables, thus this will make the program scriptable as well alongside launcher like dmenu or rofi (Optional).
+
+The only dependency that you need is the scratchpad and any other programs you wish to script this with.
+
+- 2022-04-27
+    - I have created 2 scripts, 
+        - scratchpad4cli is for CLI applications utilising the terminal to run, while 
+        - scratchpad4gui is for GUI applications that will run programatically from the background
+    - I plan on fusing both together as well as optimise the cohesiveness of the program using options
+        - i.e.
+            + '-o' | '--opt'
+    - For the time being, please refer to 'scratchpad4cli.man.md' for CLI and 'scratchpad4gui.man.md' for GUI
+
+## Setup
+
+### Pre-Requisites
+
+- Ensure that you have the following 
+    + git
+
+### Dependencies
+
++ xdotools
+
+### Obtaining
+
+- clone whole repository
+    ```console
+    git clone https://github.com/Thanatisia/shellscripts
+    ```
+- curl the script 
+    ```console
+    curl -L-O https://raw.githubusercontent.com/Thanatisia/shellscripts/main/xscripts/scratchpads
+    ```
+
+### Installing/Compiling/Building
+
+- Map the script and the commands to your Keybind script (e.g. sxhkdrc)
+    ```console
+    # Assuming is sxhkd
+    super + F12
+        scratchpads alacritty -e echo "Hello World"
+    ```
+
+## Documentation
+
+### Synopsis/Syntax
+
+scratchpads {options} [[command-to-run] [command-arguments...]]
+
+### Parameters
+
++ No Options as of now
+
+### Usage
+
++ Opening an Emulator
+   ```console
+   scratchpads alacritty
+   ```
+
+### Customization/Configuration
+
+
