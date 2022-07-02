@@ -1,0 +1,11 @@
+#!/bin/env bash
+
+### All Variables (i.e. Packages installed) to be sourced and used ###
+
+pkgs=(
+	"feh"
+	"neofetch"
+	"xdotool"
+)
+
+

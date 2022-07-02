@@ -1,0 +1,111 @@
+#!/bin/env bash
+: "
+Set configurations like wallpapers
+
+## Setup
+
+### Pre-Requisites
+
+NIL
+
+### Dependencies
+
+NIL
+
+## Documentations
+:: Synopsis/Syntax
+
+(./)set_cfgs [{-w} [arguments]...]
+
+:: Parameters
+	-w [filename] | --wallpaper [filename]:
+		+ Set wallpaper to ~/personal/scripts/current.extension
+		+ To change your current path, please edit the variable $DST_WALLPAPER
+:: Usage
++ Set Wallpaper : (./)set_cfgs -w [path/to/image/file.{png|jpg...}]
+
+## Customization and Configuration
+- $DST_WALLPAPER : To specify destination wallpaper path and filename
+	+ Default: ~/personal/wallpapers/current
+
+"
+
+### Variables ###
+DST_WALLPAPER=~/personal/wallpapers/current
+
+set_wallpaper()
+{
+	: " 
+	Create Symlink of the target wallpaper into wallpapers directory
+	"
+	TARGET_WALLPAPER="$1"
+	TARGET_WALLPAPER_FILENAME="$(basename $TARGET_WALLPAPER)"
+	TARGET_EXTENSION="${TARGET_WALLPAPER##*.}"
+
+	if [[ -f $TARGET_WALLPAPER ]]; then
+		# if target file exists
+		# Remove existing current.*
+		rm $DST_WALLPAPER.*
+
+		# Create/Recreate a relative path symlink to target wallpaper
+		ln -srf $TARGET_WALLPAPER "$DST_WALLPAPER.$TARGET_EXTENSION" && \
+			echo -e "(+) Wallpaper [$TARGET_WALLPAPER] set successfully" || \
+			echo -e "(X) Wallpaper [$TARGET_WALLPAPER] set failed"
+	else
+		echo -e "(X) Target file $TARGET_WALLPAPER does not exist, stopping..."
+	fi
+}
+
+init()
+{
+	: "
+	Initialize Variables required to use
+	"
+}
+
+setup()
+{
+	: "
+	Setup and Initialization processes during boot/run-tie
+	"
+	# Create config folders
+	mkdir -p ~/personal/{dotfiles,scripts,wallpapers}
+}
+
+startup()
+{
+	init
+	setup
+}
+
+main()
+{
+	argv=("$@")
+	argc="${#argv[@]}"
+
+	if [[ "$argc" -gt 0 ]]; then
+		# Argumnt parsed
+		while [[ "$1" != "" ]]; do
+			case "$1" in
+				"-w" | "--wallpaper")
+					TARGET_WALLPAPER="$2"
+					set_wallpaper "$TARGET_WALLPAPER"
+					shift 2
+					;;
+				*)
+					echo -e "Invalid Option"
+					break
+					shift 1
+					;;
+			esac
+		done
+	else
+		# No Arguments parsed
+		echo -e "No Arguments Parsed"
+	fi
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+	startup
+	main "$@"
+fi
