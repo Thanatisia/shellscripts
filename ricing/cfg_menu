@@ -1,0 +1,108 @@
+#!/bin/env bash
+<<EOF
+Simple Config Menu Frontend Shellscript that will run scripts according to options provided
+
+## Setup
+:: Dependencies
+
++ set_cfgs : For setting configurations such as Wallpaper
++ Any dynamic menu or list selecting utilties that takes in a list of objects for selection like
+	- dmenu | rofi : Application Launcher for taking in multiple user input and selecting 1 for stdout
+
+## Documentation
+:: Synopsis/Syntax
+
+res=\`(./)cfg_menu {options}\`
+
+:: Parameters
+
+:: Usage
+EOF
+
+get_user_choice()
+{
+	# Design Menu and Get User Choice
+	prompt="$1"
+	opt=("${@:2}")
+	dmenu_menu="dmenu"
+
+	if [[ "$prompt" != "" ]]; then
+		# prompt provided
+		dmenu_menu+=" -p $prompt"
+	fi
+	opt_choice=$(printf "%s\n" "${opt[@]}" | $dmenu_menu)
+
+	echo "$opt_choice"
+}
+
+main()
+{
+	argv=("$@")
+	argc="${#argv[@]}"
+
+	# Get Command Line Options
+	if [[ "$argc" -gt 0 ]]; then
+		# More than 1 option provided
+		while [[ "$1" != "" ]]; do
+			# While there are still arguments
+			case "$1" in
+				"-h" | "--help")
+					shift 1
+					;;
+				"-v" | "--version")
+					shift 1
+					;;
+				"-V" | "--verbose")
+					shift 1
+					;;
+				*)
+					# Default Options
+					break
+					;;
+			esac
+		done
+	fi
+
+	configs=("Wallpaper" "Cursor" "Fonts")
+	opt=`get_user_choice "Options: " "${configs[@]}"`
+
+	# Main Body
+	if [[ "$opt" != "" ]]; then
+		echo -e "Option Selected : $opt"
+		case "$opt" in
+			"Cursor")
+				echo -e "Changing Cursors : TBC"
+				;;
+			"Fonts")
+				echo -e "Changing Fonts : TBC"
+				;;
+			"Wallpaper")
+				filepath="`dmenu -p "Wallpaper Filepath: " <&-`" # Get user input
+				if [[ "$filepath" != "" ]]; then
+					echo -e "Select Wallpaper Path : $filepath"
+
+					### Get User Input from a list of options
+					selected_file_name=$(echo -e "$(dir -1 $filepath)" | dmenu -p "Select Wallpaper: ") # dir -1 [filepath] lists 1 file per line
+					selected_file="$filepath/$selected_file_name"
+
+					### Set wallpaper using User Input
+					echo -e "Selected File : $selected_file"
+					set_cfgs -w "$selected_file"
+				else
+					echo -e "No Wallpaper Path specified."
+				fi
+				;;
+			*)
+				# Default Options
+				echo -e "Invalid Option"
+				;;
+		esac
+	else
+		# No Options specified
+		echo -e "No option selected."
+	fi
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+	main "$@"
+fi

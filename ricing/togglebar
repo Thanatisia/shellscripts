@@ -1,0 +1,52 @@
+#!/bin/env bash
+
+<<EOF
+Window Manager Bar Toggler script that will
+- fill the margins/padding after killing bar
+- Start the bar if it doesnt exist
+EOF
+
+# Trap signal when bar is killed
+# trap 'command' 'signal
+
+togglebar()
+{
+	bar_name="$1"
+	bar_launcher="$2"
+	other_args="${@:2}"
+
+	echo -e "$bar_name -> $bar_launcher"
+
+	if pgrep -x $bar_name > /dev/null; then
+		# Found
+		# Kill
+		pkill $bar_name && \
+			# Temporary - fill padding using bspwm
+			# TODO: To be fixed with a window-manager agnostic way to fill padding
+			bspc config top_padding 0
+	else
+		# Not Found
+		# Launch
+		$bar_launcher & disown
+	fi
+}
+
+main()
+{
+	argv=("$@")
+	argc="${#argv[@]}"
+
+	# Get Command Line Options
+	bar_name="${argv[0]}"
+	bar_launcher="${argv[1]}"
+
+	if [[ ! "$bar_name" == "" ]] && [[ ! "$bar_launcher" == "" ]]; then
+		togglebar "$bar_name" "$bar_launcher"
+	else
+		echo -e "No Bar and launcher specified"
+	fi
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+	main "$@"
+fi
